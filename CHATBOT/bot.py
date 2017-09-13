@@ -11,6 +11,8 @@ import pyttsx3
 
 bot = ChatBot('Black') # inicia bot
 
+speak = pyttsx3('sapi5')
+
 chats = ['hi', 'oi', 'hello', 'how are you?', 'I''m fine.', 'Thanks.'] # conversas
 
 bot.set_trainer(ListTrainer) # Define o metodo de treinamento
@@ -19,11 +21,11 @@ bot.train(chats) # define a lista de conversas
 r = sr.Recognizer()
 
 with sr.Microphone() as s:
-    r.adjust_for_ambient_noise(s)
+    r.adjust_for_ambient_noise(s) # se adaptar ao ruido
 
-while True:
-    audio = r.listen(s)
-    speech = r.recognize_google(audio)
+    while True:
+        print("Say something: ")
+        audio = r.listen(s) # escutar
+        speech = r.recognize_google(audio) # falar
 
-    request = input('Enter text: ')
-    print(bot.get_response(request))
+        print(bot.get_response(speech))
